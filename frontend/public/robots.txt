@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you
+Disallow: /compare
+Disallow: /metaads
+
+Sitemap: https://feedinguniversities.com/sitemap.xml
