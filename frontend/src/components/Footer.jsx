@@ -22,7 +22,7 @@ const Footer = () => {
 
             <div className="mt-6">
               <Link
-                to="/programs"
+                to="/universities#programs"
                 className="inline-flex items-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
               >
                 Explore Programs
@@ -39,7 +39,7 @@ const Footer = () => {
             <ul className="mt-5 space-y-3">
               <li>
                 <Link
-                  to="/programs"
+                  to="/universities#programs"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   All Programs
@@ -57,7 +57,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/courses"
+                  to="/universities#programs"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Courses
@@ -93,7 +93,7 @@ const Footer = () => {
             <ul className="mt-5 space-y-3">
               <li>
                 <Link
-                  to="/online-mba"
+                  to="/management#online-mba"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Online MBA
@@ -102,7 +102,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/online-mca"
+                  to="/technology#online-mca"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Online MCA
@@ -111,7 +111,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/online-bca"
+                  to="/technology#online-bca"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Online BCA
@@ -120,7 +120,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/online-bcom"
+                  to="/commerce#online-bcom"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Online B.Com
@@ -129,7 +129,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/online-ba"
+                  to="/arts#online-ba"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Online BA
@@ -147,7 +147,7 @@ const Footer = () => {
             <ul className="mt-5 space-y-3">
               <li>
                 <Link
-                  to="/data-science"
+                  to="/technology#data-science"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Data Science
@@ -156,7 +156,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/ai-ml"
+                  to="/technology#ai-ml"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   AI & ML
@@ -165,7 +165,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/cyber-security"
+                  to="/technology#cyber-security"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Cyber Security
@@ -174,7 +174,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/working-professionals"
+                  to="/explore-by-goal#working-professionals"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Working Professionals
@@ -183,7 +183,7 @@ const Footer = () => {
 
               <li>
                 <Link
-                  to="/career-switchers"
+                  to="/explore-by-goal#career-switchers"
                   className="text-sm text-slate-400 transition hover:text-white"
                 >
                   Career Switchers

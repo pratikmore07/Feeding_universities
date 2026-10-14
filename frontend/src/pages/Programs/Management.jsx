@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /* ---------- CONTACT (from feedinguniversities.com) ---------- */
 const PHONE = "+919140309999";
@@ -240,25 +241,22 @@ function Choice({ options, value, onChange }) {
 
 /* ---------- PAGE ---------- */
 export default function ManagementPage() {
-  const [active, setActive] = useState("online-mba");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hash = location.hash.slice(1);
+  const active = programsData[hash] ? hash : "online-mba";
   const [fading, setFading] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
   const [edu, setEdu] = useState("");
   const [exp, setExp] = useState("");
   const tabRefs = useRef({});
 
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (programsData[hash]) setActive(hash);
-  }, []);
-
   const change = (key) => {
     if (key === active) return;
     setFading(true);
     setTimeout(() => {
-      setActive(key);
+      navigate({ hash: key }, { replace: true });
       setOpenFaq(0);
-      window.history.replaceState(null, "", `#${key}`);
       setFading(false);
     }, 180);
   };

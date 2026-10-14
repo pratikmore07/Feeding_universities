@@ -8,7 +8,6 @@ import {
   trackLeadSubmission,
 } from "../../services/analytics";
 
-const BROCHURE_FILE_URL = "/brochure.pdf";
 const inputClassName =
   "w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3.5 py-2 text-sm text-slate-800 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 hover:border-indigo-300 hover:bg-white focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/15";
 const labelClassName = "mb-1.5 block text-xs font-semibold text-slate-700";
@@ -24,7 +23,7 @@ const BrochureForm = ({
     phone: "",
     email: "",
     university: selectedUniversity.id,
-    course: "",
+    brochure: "",
     budget: "",
     message: "",
   }));
@@ -40,6 +39,9 @@ const BrochureForm = ({
     availableUniversities.find(
       (university) => university.id === formData.university,
     ) || selectedUniversity;
+  const chosenBrochure = chosenUniversity.brochures?.find(
+    (brochure) => brochure.url === formData.brochure,
+  );
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -62,6 +64,15 @@ const BrochureForm = ({
   const handleChange = (event) => {
     const { name, value } = event.target;
 
+    if (name === "university") {
+      setFormData((previous) => ({
+        ...previous,
+        university: value,
+        brochure: "",
+      }));
+      return;
+    }
+
     setFormData((previous) => ({
       ...previous,
       [name]: value,
@@ -71,9 +82,8 @@ const BrochureForm = ({
   const downloadBrochure = () => {
     const link = document.createElement("a");
 
-    link.href = chosenUniversity.brochure || BROCHURE_FILE_URL;
-    link.download =
-      chosenUniversity.brochure?.split("/").pop() || "brochure.pdf";
+    link.href = chosenBrochure.url;
+    link.download = chosenBrochure.url.split("/").pop();
 
     document.body.appendChild(link);
     link.click();
@@ -82,6 +92,11 @@ const BrochureForm = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!chosenBrochure?.url) {
+      setError("No brochure is available for this university yet.");
+      return;
+    }
 
     setLoading(true);
     setError("");
@@ -93,16 +108,15 @@ const BrochureForm = ({
       mobileNumber: formData.phone,
       email: formData.email,
       universityPreference: chosenUniversity.name,
-      courseInterestedIn: formData.course,
+      courseInterestedIn: chosenBrochure.course,
       budget: formData.budget,
       message: formData.message,
 
       leadCategory: "Brochure Download",
       sheetTab: "Brochure Leads",
       formName: "Brochure Download Form",
-      brochureName:
-        chosenUniversity.brochure?.split("/").pop() || "brochure.pdf",
-      brochureLink: chosenUniversity.brochure || BROCHURE_FILE_URL,
+      brochureName: chosenBrochure.url.split("/").pop(),
+      brochureLink: chosenBrochure.url,
 
       ...trackingData,
     };
@@ -242,21 +256,23 @@ const BrochureForm = ({
             </div>
 
             <div>
-              <label htmlFor="brochure-course" className={labelClassName}>
-                Interested program *
+              <label htmlFor="brochure-selection" className={labelClassName}>
+                Brochure / program *
               </label>
               <select
-                id="brochure-course"
-                name="course"
-                value={formData.course}
+                id="brochure-selection"
+                name="brochure"
+                value={formData.brochure}
                 onChange={handleChange}
                 required
                 className={`${inputClassName} cursor-pointer`}
               >
-                <option value="">Select a program</option>
-                <option value="Online MBA">Online MBA</option>
-                <option value="Online MCA">Online MCA</option>
-                <option value="Other">Other</option>
+                <option value="">Select a brochure</option>
+                {chosenUniversity.brochures?.map((brochure) => (
+                  <option key={brochure.url} value={brochure.url}>
+                    {brochure.label}
+                  </option>
+                ))}
               </select>
             </div>
 

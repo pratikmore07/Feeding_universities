@@ -329,7 +329,7 @@ const Header = () => {
             </NavLink>
 
             <NavLink
-              to="/scholarship-emi"
+              to="/fees-and-emi"
               className={({ isActive }) =>
                 `group relative py-1 text-sm font-semibold transition-colors duration-200 ${
                   isActive

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 /*    CONFIGURATION */
@@ -694,40 +694,6 @@ function getIdsFromSearch(search) {
    ICONS
 ========================================================= */
 
-function SearchIcon({ className = "h-4 w-4" }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      className="h-4 w-4"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="m5 12 4 4L19 6" />
-    </svg>
-  );
-}
-
 /* =========================================================
    UI COMPONENTS
 ========================================================= */
@@ -1030,10 +996,9 @@ export default function ComparePage() {
     location.state?.university?.id ||
     "";
 
-  const [selectedIds, setSelectedIds] = useState([]);
   const [showSelector, setShowSelector] = useState(true);
 
-  useEffect(() => {
+  const selectedIds = useMemo(() => {
     const idsFromUrl = getIdsFromSearch(location.search);
 
     const ids = incomingUniversityId
@@ -1044,7 +1009,7 @@ export default function ComparePage() {
       .filter((id) => Boolean(getUniversityById(id)))
       .slice(0, MAX_COMPARE);
 
-    setSelectedIds(validUniqueIds);
+    return validUniqueIds;
   }, [incomingUniversityId, location.search]);
 
   const selectedUniversities = useMemo(
@@ -1077,57 +1042,38 @@ export default function ComparePage() {
   }
 
   function selectUniversityForSlot(slotIndex, universityId) {
-    setSelectedIds((currentIds) => {
-      const nextIds = [...currentIds];
+    const nextIds = [...selectedIds];
 
-      if (!universityId) {
-        nextIds.splice(slotIndex, 1);
-      } else {
-        const existingIndex = nextIds.indexOf(universityId);
+    if (!universityId) {
+      nextIds.splice(slotIndex, 1);
+    } else {
+      const existingIndex = nextIds.indexOf(universityId);
 
-        if (existingIndex !== -1 && existingIndex !== slotIndex) {
-          return currentIds;
-        }
-
-        nextIds[slotIndex] = universityId;
+      if (existingIndex !== -1 && existingIndex !== slotIndex) {
+        return;
       }
 
-      const cleanIds = nextIds
-        .filter(Boolean)
-        .slice(0, MAX_COMPARE);
+      nextIds[slotIndex] = universityId;
+    }
 
-      updateUrl(cleanIds);
+    const cleanIds = nextIds.filter(Boolean).slice(0, MAX_COMPARE);
 
-      return cleanIds;
-    });
+    updateUrl(cleanIds);
   }
 
   function clearUniversitySlot(slotIndex) {
-    setSelectedIds((currentIds) => {
-      const nextIds = currentIds.filter(
-        (_, index) => index !== slotIndex
-      );
+    const nextIds = selectedIds.filter((_, index) => index !== slotIndex);
 
-      updateUrl(nextIds);
-
-      return nextIds;
-    });
+    updateUrl(nextIds);
   }
 
   function removeUniversity(universityId) {
-    setSelectedIds((currentIds) => {
-      const nextIds = currentIds.filter(
-        (id) => id !== universityId
-      );
+    const nextIds = selectedIds.filter((id) => id !== universityId);
 
-      updateUrl(nextIds);
-
-      return nextIds;
-    });
+    updateUrl(nextIds);
   }
 
   function clearAll() {
-    setSelectedIds([]);
     updateUrl([]);
   }
 
@@ -1138,7 +1084,6 @@ export default function ComparePage() {
       "nmims-online",
     ];
 
-    setSelectedIds(popularIds);
     updateUrl(popularIds);
   }
 

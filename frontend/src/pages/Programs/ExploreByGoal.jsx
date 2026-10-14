@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 /* ---------- CONTACT (from feedinguniversities.com) ---------- */
 const PHONE = "+919140309999";
@@ -200,23 +201,20 @@ function SectionHead({ title, sub }) {
 
 /* ---------- PAGE ---------- */
 export default function ExploreByGoalPage() {
-  const [active, setActive] = useState("working-professionals");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hash = location.hash.slice(1);
+  const active = goalsData[hash] ? hash : "working-professionals";
   const [fading, setFading] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
   const tabRefs = useRef({});
-
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (goalsData[hash]) setActive(hash);
-  }, []);
 
   const change = (key) => {
     if (key === active) return;
     setFading(true);
     setTimeout(() => {
-      setActive(key);
+      navigate({ hash: key }, { replace: true });
       setOpenFaq(0);
-      window.history.replaceState(null, "", `#${key}`);
       setFading(false);
     }, 180);
   };

@@ -25,7 +25,7 @@ const Contact = () => {
         <div className="container-main relative mx-auto px-4 py-16 sm:px-6 lg:py-20">
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
 
-            <div>
+            <div className="min-w-0">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-white/10 px-4 py-2 text-sm font-medium text-cyan-200 backdrop-blur">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-300" />
                 Free Education Counselling
@@ -105,29 +105,29 @@ const Contact = () => {
 
       {/* ================= CONTACT DETAILS ================= */}
       <section className="border-b border-slate-200 bg-white">
-        <div className="container-main mx-auto grid gap-4 px-4 py-6 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+        <div className="container-main mx-auto grid grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
 
           <a
             href="tel:+919140309999"
-            className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
+            className="group flex min-w-0 items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
           >
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-700 group-hover:text-white">
               <Phone size={21} />
             </div>
 
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
                 Call Us
               </p>
               <p className="mt-1 font-bold text-[#0F1B3D]">
-                +91 79854 75836
+                +91 91403 09999
               </p>
             </div>
           </a>
 
           <a
             href="mailto:counselling@feedinguniversities.com"
-            className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
+            className="group flex min-w-0 items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
           >
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-700 group-hover:text-white">
               <Mail size={21} />
@@ -147,7 +147,7 @@ const Contact = () => {
             href="https://wa.me/919140309999"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg"
+            className="group flex min-w-0 items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg"
           >
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-500 group-hover:text-white">
               <MessageCircle size={21} />

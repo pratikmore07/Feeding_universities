@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import BrochureForm from "../components/forms/BrochureForm";
+import { getUniversityBrochures } from "../data/universityBrochures";
 
 const universityPhotoAssets = import.meta.glob(
   "../assets/University Photo/optimized/*.800.jpg",
@@ -55,57 +56,7 @@ function getUniversityPhotoSrcSet(id) {
   return image ? `${image} 800w` : undefined;
 }
 
-const PHONE = "+919140309999";
 const COUNSELLING_PATH = "/counselling";
-
-const BROCHURE_LINKS = {
-  "amity-university-online": "/brochures/amity-university-online.pdf",
-  "manipal-university-online": "/brochures/manipal-university-online.pdf",
-  "chandigarh-university-online": "/brochures/chandigarh-university-online.pdf",
-  "lovely-professional-university-online":
-    "/brochures/lovely-professional-university-online.pdf",
-  "jain-university-online": "/brochures/jain-university-online.pdf",
-  "nmims-online": "/brochures/nmims-online.pdf",
-  "dy-patil-university-online": "/brochures/dy-patil-university-online.pdf",
-  "sharda-university-online": "/brochures/sharda-university-online.pdf",
-  "uttaranchal-university-online":
-    "/brochures/uttaranchal-university-online.pdf",
-  "upes-online": "/brochures/upes-online.pdf",
-  "kurukshetra-university-online":
-    "/brochures/kurukshetra-university-online.pdf",
-  "vivekananda-global-university-online":
-    "/brochures/vivekananda-global-university-online.pdf",
-  "manav-rachna-online": "/brochures/manav-rachna-online.pdf",
-  "sikkim-manipal-university-online":
-    "/brochures/sikkim-manipal-university-online.pdf",
-  "parul-university-online": "/brochures/parul-university-online.pdf",
-  "mangalayatan-university-online":
-    "/brochures/mangalayatan-university-online.pdf",
-  "gla-university-online": "/brochures/gla-university-online.pdf",
-  "galgotias-university-online": "/brochures/galgotias-university-online.pdf",
-  "andhra-university-online": "/brochures/andhra-university-online.pdf",
-  "aligarh-muslim-university-online":
-    "/brochures/aligarh-muslim-university-online.pdf",
-  "jamia-hamdard-online": "/brochures/jamia-hamdard-online.pdf",
-  "guru-nanak-dev-university-online":
-    "/brochures/guru-nanak-dev-university-online.pdf",
-  "bharathidasan-university-online":
-    "/brochures/bharathidasan-university-online.pdf",
-  "dr-mgr-educational-and-research-institute-online":
-    "/brochures/dr-mgr-educational-and-research-institute-online.pdf",
-  "vit-university": "/brochures/vit-university.pdf",
-  "srm-university": "/brochures/srm-university.pdf",
-  "amrita-vishwa-vidyapeetham": "/brochures/amrita-vishwa-vidyapeetham.pdf",
-  ignou: "/brochures/ignou.pdf",
-  "bharati-vidyapeeth": "/brochures/bharati-vidyapeeth.pdf",
-  "vignans-foundation": "/brochures/vignans-foundation.pdf",
-  "mizoram-university": "/brochures/mizoram-university.pdf",
-  "guru-ghasidas-university": "/brochures/guru-ghasidas-university.pdf",
-};
-
-function getBrochureLink(id) {
-  return BROCHURE_LINKS[id] || `/brochures/${id}.pdf`;
-}
 
 const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap');
@@ -1384,7 +1335,7 @@ function UniversityDetailPage({ activeId, onBack, onSelectUniversity }) {
   const [selectedBrochure, setSelectedBrochure] = useState(null);
 
   const university = getDetailData(activeId);
-  const brochureLink = getBrochureLink(university.id);
+  const brochures = getUniversityBrochures(university.id);
 
   const relatedUniversities = UNIVERSITIES.filter(
     (item) => item.id !== activeId,
@@ -1456,18 +1407,20 @@ function UniversityDetailPage({ activeId, onBack, onSelectUniversity }) {
                   View Programs
                 </a>
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSelectedBrochure({
-                      ...university,
-                      brochure: brochureLink,
-                    })
-                  }
-                  className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
-                >
-                  Download Brochure
-                </button>
+                {brochures.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSelectedBrochure({
+                        ...university,
+                        brochures,
+                      })
+                    }
+                    className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+                  >
+                    Download Brochure
+                  </button>
+                )}
               </div>
             </div>
 
@@ -1515,7 +1468,7 @@ function UniversityDetailPage({ activeId, onBack, onSelectUniversity }) {
             universityOptions={UNIVERSITIES.slice(0, 10).map((item) => ({
               id: item.id,
               name: item.name,
-              brochure: getBrochureLink(item.id),
+              brochures: getUniversityBrochures(item.id),
             }))}
             onClose={() => setSelectedBrochure(null)}
           />

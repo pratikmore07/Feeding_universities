@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import {
-  Search,
   ShieldCheck,
   ArrowRight,
   Briefcase,
@@ -41,11 +40,6 @@ const ROUTES = {
   Arts: "/arts",
 };
 
-const heroStats = [
-  ["60L+", "Scholarships awarded"],
-  ["32L+", "Referral paid out"],
-  ["₹0", "Markup on fees, ever"],
-];
 const concerns = [
   "Choosing a program",
   "Fees & EMI options",
@@ -133,45 +127,6 @@ const paths = [
     title: "University Partner",
     copy: "Partner with a verified discovery platform trusted for accurate program data.",
     icon: BadgeCheck,
-  },
-];
-
-const featuredPrograms = [
-  {
-    university: "Amity University Online",
-    name: "MBA in Data Science",
-    duration: "2 Years",
-    fee: "₹1,99,000",
-  },
-  {
-    university: "Jain Online",
-    name: "MCA in NLP and LLM Development",
-    duration: "2 Years",
-    fee: "₹1,60,000",
-  },
-  {
-    university: "Jain Online",
-    name: "MBA in Business Intelligence & Analytics",
-    duration: "2 Years",
-    fee: "₹1,96,000",
-  },
-  {
-    university: "Uttaranchal University",
-    name: "MBA in Business Analytics",
-    duration: "2 Years",
-    fee: "₹94,000",
-  },
-  {
-    university: "LPU Online",
-    name: "MCA in Machine Learning & AI",
-    duration: "2 Years",
-    fee: "₹1,08,800",
-  },
-  {
-    university: "Manipal University Jaipur",
-    name: "MCA in AI & ML",
-    duration: "2 Years",
-    fee: "₹1,58,000",
   },
 ];
 
@@ -438,8 +393,6 @@ const lift =
   "transition duration-300 hover:-translate-y-1 hover:border-[#2C5CF6]/50 hover:shadow-[0_22px_50px_-20px_rgba(44,92,246,0.55)]";
 const grad =
   "bg-linear-to-r from-[#2C5CF6] to-[#E9A93A] bg-clip-text text-transparent";
-const gradDk =
-  "bg-linear-to-r from-[#9DB4FF] to-[#F7C948] bg-clip-text text-transparent";
 const btnY =
   "inline-flex items-center justify-center gap-2 rounded-xl bg-[#F7C948] px-6 py-3.5 text-sm font-semibold text-[#0B1220] shadow-[0_12px_30px_-10px_rgba(233,169,58,0.8)] transition hover:-translate-y-0.5 hover:bg-[#FFD75E]";
 const btnB =
@@ -470,7 +423,7 @@ function Section({ id, tone = "white", children }) {
   return (
     <section
       id={id}
-      className={`relative overflow-hidden px-6 py-24 lg:px-10 ${TONES[tone]}`}
+      className={`relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24 ${TONES[tone]}`}
     >
       {tone === "blue" && (
         <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[#F7C948]/25 blur-[100px]" />
@@ -482,7 +435,7 @@ function Section({ id, tone = "white", children }) {
 
 function Head({ eyebrow, title, sub, dark }) {
   return (
-    <Reveal className="mx-auto mb-14 max-w-2xl text-center">
+    <Reveal className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
       <span
         className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold tracking-[0.2em] ${dark ? "border-white/25 bg-white/10 text-white/80" : "border-[#2C5CF6]/25 bg-[#2C5CF6]/[0.07] text-[#2C5CF6]"}`}
       >
@@ -634,16 +587,8 @@ function ProgramsFit() {
 
 /* ============================= PAGE ============================= */
 export default function DegreeCounsellingHome() {
-  const [query, setQuery] = useState("");
   const [audience, setAudience] = useState("Student");
   const [concern, setConcern] = useState("Choosing a program");
-
-  const q = query.trim().toLowerCase();
-  const shown = q
-    ? featuredPrograms.filter((p) =>
-        `${p.name} ${p.university}`.toLowerCase().includes(q),
-      )
-    : featuredPrograms;
 
   return (
     <div className="overflow-x-hidden bg-white font-body text-[#0B1220]">
@@ -674,7 +619,7 @@ export default function DegreeCounsellingHome() {
           />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-24 lg:px-10">
+        <div className="relative mx-auto max-w-7xl px-4 pt-14 pb-16 sm:px-6 sm:pt-20 sm:pb-24 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -684,35 +629,33 @@ export default function DegreeCounsellingHome() {
             25,000+ FAMILIES
           </motion.div>
 
-          <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="grid gap-10 sm:gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
-                className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl"
+                className="max-w-xl font-display text-4xl font-extrabold leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-[3.65rem]"
               >
-                <h2 className="max-w-xl text-4xl font-extrabold leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-[3.65rem]">
-                  Don't just earn
-                  <br />
-                  a degree.
-                  <br />
-                  <span className="relative mt-1 inline-block text-[#F7C948]">
-                    Build your future.
-                    <svg
-                      viewBox="0 0 320 12"
-                      fill="none"
-                      className="absolute -bottom-2 left-0 w-full"
-                    >
-                      <path
-                        d="M3 8C83 2 210 2 317 7"
-                        stroke="#F7C948"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                </h2>
+                Don't just earn
+                <br />
+                a degree.
+                <br />
+                <span className="relative mt-1 inline-block text-[#F7C948]">
+                  Build your future.
+                  <svg
+                    viewBox="0 0 320 12"
+                    fill="none"
+                    className="absolute -bottom-2 left-0 w-full"
+                  >
+                    <path
+                      d="M3 8C83 2 210 2 317 7"
+                      stroke="#F7C948"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
               </motion.h1>
               <p className="mt-6 max-w-lg text-[16px] leading-relaxed text-[#4A5578]">
                 No agents. No markups. Compare UGC-DEB certified online MBA, MCA
@@ -1089,8 +1032,6 @@ export default function DegreeCounsellingHome() {
                 <div className="relative h-32 overflow-hidden bg-[#EAF1FF]">
                   <img
                     src={u.image}
-                    srcSet={`${u.image} 800w`}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     alt={`${u.name} campus`}
                     loading="lazy"
                     decoding="async"

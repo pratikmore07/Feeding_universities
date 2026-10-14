@@ -13,10 +13,17 @@
    `frontend/public/.htaccess`, `VITE_SITE_URL` in the production build
    environment, and the absolute URLs in the sitemap and HTML structured data
    before rebuilding.
-4. Configure `VITE_API_BASE_URL` to the backend's HTTPS origin (for example,
-   `https://api.feedinguniversities.com`) unless Hostinger is configured to
-   proxy `/api` to the backend on the frontend domain. Rebuild after changing
-   frontend environment variables; Vite embeds them in the static files.
+4. Copy `frontend/.env.example` to `frontend/.env` for local production-build
+   testing. In the Hostinger build environment, configure `VITE_API_BASE_URL`
+   to the backend's HTTPS origin unless Hostinger is configured to proxy `/api`
+   to the frontend domain. Rebuild after changing frontend environment
+   variables; Vite embeds them in the static files. Do not deploy with the
+   example's empty API URL unless the same-origin `/api` proxy is working.
+5. Keep university PDF brochures in `frontend/public/Brochure/`. Add or
+   update each university's available program choices in
+   `frontend/src/data/universityBrochures.js`; the file names and letter case
+   must match exactly. Rebuild and upload the resulting `dist/Brochure/`
+   directory with the rest of `dist`.
 
 ## Node.js backend
 
@@ -28,7 +35,9 @@
    without confirming the proxy topology.
 3. Add the remaining application secrets from `backend/.env.example` through
    Hostinger's environment-variable settings. Do not upload `.env` files or
-   expose backend secrets in frontend `VITE_*` variables.
+   expose backend secrets in frontend `VITE_*` variables. The local
+   `backend/.env` is now ignored by Git; rotate any active credentials that
+   were present in its previously tracked version before deployment.
 4. Confirm the backend is reachable only through its HTTPS endpoint and that
    its certificate is valid. The API emits HSTS when Hostinger forwards the
    secure scheme to Node.
