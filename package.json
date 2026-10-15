@@ -1,0 +1,10 @@
+{
+  "name": "feeding-universities",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=frontend"
+  }
+}

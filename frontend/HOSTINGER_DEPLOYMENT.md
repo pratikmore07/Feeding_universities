@@ -3,12 +3,14 @@
 
 1. Point the domain to the Hostinger website and enable its SSL certificate in
    hPanel before testing the HTTPS redirect.
-2. Build the frontend with `npm run build` in `frontend` and upload the
-   **contents** of `frontend/dist` to the domain's document root (commonly
-   `public_html`). The build includes `public/.htaccess`, which redirects HTTP
-   and `www` traffic to `https://feedinguniversities.com`, serves the React
-   Router fallback, applies security/cache headers, and enables gzip where
-   supported.
+2. Configure Hostinger to use the repository root as the application root,
+   run `npm install` and `npm run build` there, and set the output directory to
+   `frontend/dist`. The root build script installs the frontend workspace
+   dependencies and delegates to Vite. Upload the **contents** of
+   `frontend/dist` to the domain's document root (commonly `public_html`).
+   The build includes `public/.htaccess`, which redirects HTTP and `www`
+   traffic to `https://feedinguniversities.com`, serves the React Router
+   fallback, applies security/cache headers, and enables gzip where supported.
 3. If the canonical domain differs, update the redirect host in
    `frontend/public/.htaccess`, `VITE_SITE_URL` in the production build
    environment, and the absolute URLs in the sitemap and HTML structured data
