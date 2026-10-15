@@ -3,8 +3,12 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^(www\.)?feedinguniversities\.com$ [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
   RewriteCond %{HTTPS} !=on [OR]
-  RewriteCond %{HTTP_HOST} !^feedinguniversities\.com$ [NC]
+  RewriteCond %{HTTP_HOST} ^www\.feedinguniversities\.com$ [NC]
   RewriteRule ^ https://feedinguniversities.com%{REQUEST_URI} [R=301,L,NE]
 
   RewriteCond %{REQUEST_FILENAME} -f [OR]

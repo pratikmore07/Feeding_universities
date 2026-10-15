@@ -9,8 +9,10 @@
    dependencies and delegates to Vite. Upload the **contents** of
    `frontend/dist` to the domain's document root (commonly `public_html`).
    The build includes `public/.htaccess`, which redirects HTTP and `www`
-   traffic to `https://feedinguniversities.com`, serves the React Router
-   fallback, applies security/cache headers, and enables gzip where supported.
+   traffic on the production domain to `https://feedinguniversities.com`,
+   preserves other HTTPS hostnames such as the Hostinger preview domain,
+   serves the React Router fallback, applies security/cache headers, and
+   enables gzip where supported.
 3. If the canonical domain differs, update the redirect host in
    `frontend/public/.htaccess`, `VITE_SITE_URL` in the production build
    environment, and the absolute URLs in the sitemap and HTML structured data
